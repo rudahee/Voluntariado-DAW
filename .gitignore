@@ -1,6 +1,7 @@
 .git/*
 .classpath
 .project
+.idea/*
 .settings/*
 .classpath/*
 bin/*
