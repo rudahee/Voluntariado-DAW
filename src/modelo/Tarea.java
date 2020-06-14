@@ -199,5 +199,15 @@ public class Tarea {
 		listaRecursos.add(recurso);
 		recurso.setTarea(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Tarea [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fechaInicio="
+				+ fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", localizacion=" + localizacion
+				+ ", trabajoIndividual=" + trabajoIndividual + ", estado=" + estado + ", maximoVoluntario="
+				+ maximoVoluntario + ", minimoVoluntario=" + minimoVoluntario + ", listaVoluntarios=" + listaVoluntarios
+				+ ", listaAptitudes=" + listaAptitudes + ", listaRecursos=" + listaRecursos + ", proyecto=" + proyecto
+				+ "]";
+	}
 	
 }

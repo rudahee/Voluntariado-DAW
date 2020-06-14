@@ -28,13 +28,12 @@ public class Proyecto {
 	private Organizacion organizacion;
 
 	public Proyecto(String nombre, String descripcion, String localizacion, Date fechaInicio,
-			Date fechaFinalizacion, Organizacion organizacion) {
+			Date fechaFinalizacion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.localizacion = localizacion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFinalizacion = fechaFinalizacion;
-		this.organizacion = organizacion;
 		listaTareas = new ArrayList<Tarea>();
 		voluntarios = new ArrayList<Voluntario>();
 	}
@@ -122,6 +121,14 @@ public class Proyecto {
 	public void addVoluntario(Voluntario voluntario) {
 		voluntarios.add(voluntario);
 		voluntario.setProyecto(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Proyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
+				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion
+				+ ", listaTareas=" + listaTareas + ", voluntarios=" + voluntarios + ", organizacion=" + organizacion
+				+ "]";
 	}
 	
 	

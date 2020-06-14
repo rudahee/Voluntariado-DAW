@@ -81,6 +81,7 @@ public class Voluntario {
 
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
+		
 	}
 
 	@Override
