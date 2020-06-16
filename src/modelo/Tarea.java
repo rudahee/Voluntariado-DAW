@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Tarea {
+public class Tarea implements TareaImpl {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -33,11 +33,11 @@ public class Tarea {
 	@OneToMany(mappedBy = "tarea")
 	private List<Recurso> listaRecursos;
 	@ManyToOne
-	private Proyecto proyecto;
+	private ProyectoImpl proyecto;
 
 
 	public Tarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
-			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, Proyecto proyecto) {
+			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, ProyectoImpl proyecto) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -47,7 +47,7 @@ public class Tarea {
 		this.minimoVoluntario = minimoVoluntario;
 		this.trabajoIndividual = trabajoIndividual;
 		this.estado = estadoEnum.CREADA;
-		this.proyecto = proyecto;
+		setProyecto(proyecto);
 		listaVoluntarios = new ArrayList<VoluntarioTarea>();
 		listaAptitudes = new ArrayList<TareaAptitud>();
 		listaRecursos = new ArrayList<Recurso>();
@@ -61,116 +61,145 @@ public class Tarea {
 
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	@Override
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
+	@Override
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
+	@Override
 	public Date getFechaFinalizacion() {
 		return fechaFinalizacion;
 	}
 
+	@Override
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
 	}
 
+	@Override
 	public String getLocalizacion() {
 		return localizacion;
 	}
 
+	@Override
 	public void setLocalizacion(String localizacion) {
 		this.localizacion = localizacion;
 	}
 
+	@Override
 	public boolean isTrabajoIndividual() {
 		return trabajoIndividual;
 	}
 
+	@Override
 	public void setTrabajoIndividual(boolean trabajoIndividual) {
 		this.trabajoIndividual = trabajoIndividual;
 	}
 
+	@Override
 	public estadoEnum getEstado() {
 		return estado;
 	}
 
+	@Override
 	public void setEstado(estadoEnum estado) {
 		this.estado = estado;
 	}
 
+	@Override
 	public int getMaximoVoluntario() {
 		return maximoVoluntario;
 	}
 
+	@Override
 	public void setMaximoVoluntario(int maximoVoluntario) {
 		this.maximoVoluntario = maximoVoluntario;
 	}
 
+	@Override
 	public int getMinimoVoluntario() {
 		return minimoVoluntario;
 	}
 
+	@Override
 	public void setMinimoVoluntario(int minimoVoluntario) {
 		this.minimoVoluntario = minimoVoluntario;
 	}
 
+	@Override
 	public List<VoluntarioTarea> getListaVoluntarios() {
 		return listaVoluntarios;
 	}
 
+	@Override
 	public void setListaVoluntarios(List<VoluntarioTarea> listaVoluntarios) {
 		this.listaVoluntarios = listaVoluntarios;
 	}
 
+	@Override
 	public List<TareaAptitud> getListaAptitudes() {
 		return listaAptitudes;
 	}
 
+	@Override
 	public void setListaAptitudes(List<TareaAptitud> listaAptitudes) {
 		this.listaAptitudes = listaAptitudes;
 	}
 
+	@Override
 	public List<Recurso> getListaRecursos() {
 		return listaRecursos;
 	}
 
+	@Override
 	public void setListaRecursos(List<Recurso> listaRecursos) {
 		this.listaRecursos = listaRecursos;
 	}
 
-	public Proyecto getProyecto() {
+	@Override
+	public ProyectoImpl getProyecto() {
 		return proyecto;
 	}
 
-	public void setProyecto(Proyecto proyecto) {
+	@Override
+	public void setProyecto(ProyectoImpl proyecto) {
 		this.proyecto = proyecto;
+		proyecto.addTarea(this);
 	}
 
 	@Override
@@ -195,6 +224,7 @@ public class Tarea {
 		return true;
 	}
 
+	@Override
 	public void addRecurso(Recurso recurso) {
 		listaRecursos.add(recurso);
 		recurso.setTarea(this);

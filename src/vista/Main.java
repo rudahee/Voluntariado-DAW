@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 import controlador.Controller;
-import modelo.Organizacion;
-import modelo.Voluntario;
+import modelo.OrganizacionImpl;
+import modelo.VoluntarioImpl;
 
 public class Main {
 
@@ -43,13 +43,13 @@ public class Main {
 			do {
 				id = leerEntero("ID: ");
 			} while(controlador.comprobarUsuario(id));
-			Voluntario usuario = controlador.obtenerVoluntario(id);
+			VoluntarioImpl usuario = controlador.obtenerVoluntario(id);
 			System.out.println("Tu ID: " + usuario.getId());
 			
 		} else {
 			String nombre = leerCadena("Nombre: ");
 			String apellidos  = leerCadena("Apellidos: ");
-			Voluntario usuario = controlador.crearVoluntario(nombre, apellidos);
+			VoluntarioImpl usuario = controlador.crearVoluntario(nombre, apellidos);
 			System.out.println("Tu ID: " + usuario.getId());
 		}
 		
@@ -91,20 +91,24 @@ public class Main {
 	}
 
 	private static void imprimirMenuOrganizacion() {
-		System.out.println("1) Crear proyecto");
-		System.out.println("2) Crear tarea");
-		System.out.println("3) Empezar una tarea");
-		System.out.println("4) Finalizar una tarea.");
-		System.out.println("5) Cancelar una tarea");
-		System.out.println("6) Dar feedback de los voluntarios");
-		System.out.println("7) Salir");
+		System.out.println("1) Ver proyectos");
+		System.out.println("2) Crear proyecto");
+		System.out.println("3) Ver tareas");
+		System.out.println("4) Crear tarea");
+		System.out.println("5) Empezar una tarea");
+		System.out.println("6) Finalizar una tarea.");
+		System.out.println("7) Cancelar una tarea");
+		System.out.println("8) Ver los voluntarios en una tarea");
+		System.out.println("9) Dar feedback de los voluntarios");
+		System.out.println("10) Dar aptitud a un voluntario");
+		System.out.println("11) Salir");
 	}
 	
 	private static void menuOrganizacion() throws ParseException {
 		int opcion = 0;	
 		int existe, id;
 		
-		Organizacion organizacion;
+		OrganizacionImpl organizacion;
 		
 		String nombre, descripcion, localizacion;
 		Date fechaInicio = new Date(), fechaFinalizacion = new Date();
@@ -115,7 +119,7 @@ public class Main {
 		if (existe == 1) {
 			do {
 				id = leerEntero("ID: ");
-			} while(controlador.comprobarOrganziacion(id));
+			} while(controlador.comprobarOrganizacion(id));
 			
 			organizacion = controlador.obtenerOrganizacion(id);
 			System.out.println("Tu ID: " + organizacion.getId());
@@ -136,6 +140,9 @@ public class Main {
 			
 			switch (opcion) {
 				case 1:
+					System.out.println(controlador.verProyectosOrganizacion(organizacion));
+					break;
+				case 2:
 					nombre = leerCadena("Nombre del proyecto: ");
 					descripcion = leerCadena("Descripcion del proyecto: ");
 					localizacion = leerCadena("Localizacion del proyecto: ");
@@ -143,13 +150,12 @@ public class Main {
 					fechaFinalizacion = formatearFecha.parse(leerCadena("Fecha de finalizacion"));
 					
 					controlador.crearProyecto(nombre, descripcion, localizacion, fechaInicio, fechaFinalizacion, organizacion);
-					break;
-				case 2:
-					
 					break;					
 				case 3:
+					System.out.println(controlador.verTareas(idProyecto));
 					break;				
 				case 4:
+					
 					break;	
 				case 5:
 					break;

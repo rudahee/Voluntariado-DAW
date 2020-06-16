@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Proyecto {
+public class Proyecto implements ProyectoImpl {
 
 	@Id
 	@GeneratedValue
@@ -25,7 +25,7 @@ public class Proyecto {
 	@OneToMany(mappedBy = "proyecto")
 	private List<Voluntario> voluntarios;
 	@ManyToOne
-	private Organizacion organizacion;
+	private OrganizacionImpl organizacion;
 
 	public Proyecto(String nombre, String descripcion, String localizacion, Date fechaInicio,
 			Date fechaFinalizacion) {
@@ -42,58 +42,76 @@ public class Proyecto {
 		
 	}
 	
+	@Override
 	public int getId() {
 		return id;
 	}
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	@Override
 	public String getLocalizacion() {
 		return localizacion;
 	}
+	@Override
 	public void setLocalizacion(String localizacion) {
 		this.localizacion = localizacion;
 	}
+	@Override
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
+	@Override
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	@Override
 	public Date getFechaFinalizacion() {
 		return fechaFinalizacion;
 	}
+	@Override
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
 	}
+	@Override
 	public List<Tarea> getListaTareas() {
 		return listaTareas;
 	}
+	@Override
 	public void setListaTareas(List<Tarea> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
+	@Override
 	public List<Voluntario> getVoluntarios() {
 		return voluntarios;
 	}
+	@Override
 	public void setVoluntarios(List<Voluntario> voluntarios) {
 		this.voluntarios = voluntarios;
 	}
-	public Organizacion getOrganizacion() {
+	@Override
+	public OrganizacionImpl getOrganizacion() {
 		return organizacion;
 	}
-	public void setOrganizacion(Organizacion organizacion) {
+	@Override
+	public void setOrganizacion(OrganizacionImpl organizacion) {
 		this.organizacion = organizacion;
 	}
 	
@@ -118,9 +136,15 @@ public class Proyecto {
 		return true;
 	}
 
+	@Override
 	public void addVoluntario(Voluntario voluntario) {
 		voluntarios.add(voluntario);
 		voluntario.setProyecto(this);
+	}
+	
+	@Override
+	public void addTarea(Tarea tarea) {
+		listaTareas.add(tarea);
 	}
 
 	@Override

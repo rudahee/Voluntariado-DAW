@@ -9,6 +9,12 @@ public class VoluntarioTareaId implements Serializable{
 	public VoluntarioTareaId() {
 	}
 
+	public VoluntarioTareaId(int idVoluntario, int idTarea) {
+		this.tarea = idTarea;
+		this.voluntario = idVoluntario;
+				
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

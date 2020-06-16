@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Organizacion {
+public class Organizacion implements OrganizacionImpl {
 
 	@Id
 	@GeneratedValue
@@ -26,26 +26,32 @@ public class Organizacion {
 		listaProyectos = new ArrayList<Proyecto>();
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public List<Proyecto> getListaProyectos() {
 		return listaProyectos;
 	}
 
+	@Override
 	public void setListaProyectos(List<Proyecto> listaProyectos) {
 		this.listaProyectos = listaProyectos;
 	}
@@ -77,6 +83,7 @@ public class Organizacion {
 		return "Organizacion [id=" + id + ", nombre=" + nombre + ", listaProyectos=" + listaProyectos + "]";
 	}
 
+	@Override
 	public void addProyecto(Proyecto proyecto) {
 		listaProyectos.add(proyecto);
 		proyecto.setOrganizacion(this);

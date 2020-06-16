@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Voluntario {
+public class Voluntario implements VoluntarioImpl {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -20,7 +20,7 @@ public class Voluntario {
 	@OneToMany(mappedBy = "voluntario")
 	private List<VoluntarioTarea> listaTareas;
 	@ManyToOne
-	private Proyecto proyecto;
+	private ProyectoImpl proyecto;
 
 
 	public Voluntario(String nombre, String apellido) {
@@ -35,51 +35,63 @@ public class Voluntario {
 		listaTareas = new ArrayList<VoluntarioTarea>();
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public String getApellido() {
 		return apellido;
 	}
 
+	@Override
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
 
+	@Override
 	public List<VoluntarioAptitud> getListaAptitudes() {
 		return listaAptitudes;
 	}
 
+	@Override
 	public void setListaAptitudes(List<VoluntarioAptitud> listaAptitudes) {
 		this.listaAptitudes = listaAptitudes;
 	}
 
+	@Override
 	public List<VoluntarioTarea> getListaTareas() {
 		return listaTareas;
 	}
 
+	@Override
 	public void setListaTareas(List<VoluntarioTarea> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
 
-	public Proyecto getProyecto() {
+	@Override
+	public ProyectoImpl getProyecto() {
 		return proyecto;
 	}
 
-	public void setProyecto(Proyecto proyecto) {
+	@Override
+	public void setProyecto(ProyectoImpl proyecto) {
 		this.proyecto = proyecto;
 		
 	}

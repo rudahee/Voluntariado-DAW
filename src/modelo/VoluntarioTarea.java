@@ -10,14 +10,14 @@ import javax.persistence.ManyToOne;
 public class VoluntarioTarea {
 	@Id
 	@ManyToOne
-	private Tarea tarea;
+	private TareaImpl tarea;
 	@Id
 	@ManyToOne
-	private Voluntario voluntario;
+	private VoluntarioImpl voluntario;
 	private String feedbackDeVoluntario;
 	private String feedbackDeTarea;
 
-	public VoluntarioTarea(Tarea tarea, Voluntario voluntario) {
+	public VoluntarioTarea(TareaImpl tarea, VoluntarioImpl voluntario) {
 		this.tarea = tarea;
 		this.voluntario = voluntario;
 	}
@@ -26,19 +26,19 @@ public class VoluntarioTarea {
 
 	}
 
-	public Tarea getTarea() {
+	public TareaImpl getTarea() {
 		return tarea;
 	}
 
-	public void setTarea(Tarea tarea) {
+	public void setTarea(TareaImpl tarea) {
 		this.tarea = tarea;
 	}
 
-	public Voluntario getVoluntario() {
+	public VoluntarioImpl getVoluntario() {
 		return voluntario;
 	}
 
-	public void setVoluntario(Voluntario voluntario) {
+	public void setVoluntario(VoluntarioImpl voluntario) {
 		this.voluntario = voluntario;
 	}
 

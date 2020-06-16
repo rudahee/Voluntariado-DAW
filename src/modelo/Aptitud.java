@@ -8,7 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Aptitud {
+public class Aptitud implements AptitudImpl {
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -34,50 +35,62 @@ public class Aptitud {
 		listaVoluntarios = new ArrayList<VoluntarioAptitud>();
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	@Override
 	public boolean isAdquirible() {
 		return adquirible;
 	}
 
+	@Override
 	public void setAdquirible(boolean adquirible) {
 		this.adquirible = adquirible;
 	}
 
+	@Override
 	public List<TareaAptitud> getListaTareas() {
 		return listaTareas;
 	}
 
+	@Override
 	public void setListaTareas(List<TareaAptitud> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
 
+	@Override
 	public List<VoluntarioAptitud> getListaVoluntarios() {
 		return listaVoluntarios;
 	}
 
+	@Override
 	public void setListaVoluntarios(List<VoluntarioAptitud> listaVoluntarios) {
 		this.listaVoluntarios = listaVoluntarios;
 	}

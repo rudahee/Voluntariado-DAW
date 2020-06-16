@@ -6,16 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Recurso {
+public class Recurso implements RecursoImpl {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String nombre;
 	private int cantidad;
 	@ManyToOne
-	private Tarea tarea;
+	private TareaImpl tarea;
 	
-	public Recurso(String nombre, int cantidad, Tarea tarea) {
+	public Recurso(String nombre, int cantidad, TareaImpl tarea) {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.tarea = tarea;
@@ -24,35 +24,43 @@ public class Recurso {
 
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public int getCantidad() {
 		return cantidad;
 	}
 
+	@Override
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	public Tarea getTarea() {
+	@Override
+	public TareaImpl getTarea() {
 		return tarea;
 	}
 
-	public void setTarea(Tarea tarea) {
+	@Override
+	public void setTarea(TareaImpl tarea) {
 		this.tarea = tarea;
 	}
 
