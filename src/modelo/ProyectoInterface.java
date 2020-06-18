@@ -3,7 +3,7 @@ package modelo;
 import java.util.Date;
 import java.util.List;
 
-public interface ProyectoImpl {
+public interface ProyectoInterface {
 
 	int getId();
 
@@ -37,9 +37,9 @@ public interface ProyectoImpl {
 
 	void setVoluntarios(List<Voluntario> voluntarios);
 
-	OrganizacionImpl getOrganizacion();
+	Organizacion getOrganizacion();
 
-	void setOrganizacion(OrganizacionImpl organizacion);
+	void setOrganizacion(Organizacion organizacion);
 
 	int hashCode();
 

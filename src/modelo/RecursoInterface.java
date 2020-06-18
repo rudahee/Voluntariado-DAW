@@ -1,6 +1,6 @@
 package modelo;
 
-public interface RecursoImpl {
+public interface RecursoInterface {
 
 	int getId();
 
@@ -14,9 +14,9 @@ public interface RecursoImpl {
 
 	void setCantidad(int cantidad);
 
-	TareaImpl getTarea();
+	Tarea getTarea();
 
-	void setTarea(TareaImpl tarea);
+	void setTarea(Tarea tarea);
 
 	int hashCode();
 

@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.List;
 
-public interface VoluntarioImpl {
+public interface VoluntarioInterface {
 
 	int getId();
 
@@ -24,9 +24,9 @@ public interface VoluntarioImpl {
 
 	void setListaTareas(List<VoluntarioTarea> listaTareas);
 
-	ProyectoImpl getProyecto();
+	Proyecto getProyecto();
 
-	void setProyecto(ProyectoImpl proyecto);
+	void setProyecto(Proyecto proyecto);
 
 	int hashCode();
 

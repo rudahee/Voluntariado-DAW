@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Organizacion implements OrganizacionImpl {
+public class Organizacion implements OrganizacionInterface {
 
 	@Id
 	@GeneratedValue

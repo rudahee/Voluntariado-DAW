@@ -10,12 +10,12 @@ import javax.persistence.ManyToOne;
 public class TareaAptitud {
 	@Id
 	@ManyToOne
-	private TareaImpl tarea;
+	private Tarea tarea;
 	@Id
 	@ManyToOne
-	private AptitudImpl aptitud;
+	private Aptitud aptitud;
 
-	public TareaAptitud(TareaImpl tarea, AptitudImpl aptitud) {
+	public TareaAptitud(Tarea tarea, Aptitud aptitud) {
 		this.tarea = tarea;
 		this.aptitud = aptitud;
 	}
@@ -24,19 +24,19 @@ public class TareaAptitud {
 
 	}
 
-	public TareaImpl getTarea() {
+	public Tarea getTarea() {
 		return tarea;
 	}
 
-	public void setTarea(TareaImpl tarea) {
+	public void setTarea(Tarea tarea) {
 		this.tarea = tarea;
 	}
 
-	public AptitudImpl getAptitud() {
+	public Aptitud getAptitud() {
 		return aptitud;
 	}
 
-	public void setAptitud(AptitudImpl aptitud) {
+	public void setAptitud(Aptitud aptitud) {
 		this.aptitud = aptitud;
 	}
 

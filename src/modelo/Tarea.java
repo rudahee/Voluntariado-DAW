@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Tarea implements TareaImpl {
+public class Tarea implements TareaInterface {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -33,11 +33,11 @@ public class Tarea implements TareaImpl {
 	@OneToMany(mappedBy = "tarea")
 	private List<Recurso> listaRecursos;
 	@ManyToOne
-	private ProyectoImpl proyecto;
+	private Proyecto proyecto;
 
 
 	public Tarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
-			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, ProyectoImpl proyecto) {
+			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, Proyecto proyecto) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -192,12 +192,12 @@ public class Tarea implements TareaImpl {
 	}
 
 	@Override
-	public ProyectoImpl getProyecto() {
+	public Proyecto getProyecto() {
 		return proyecto;
 	}
 
 	@Override
-	public void setProyecto(ProyectoImpl proyecto) {
+	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 		proyecto.addTarea(this);
 	}
@@ -232,12 +232,9 @@ public class Tarea implements TareaImpl {
 
 	@Override
 	public String toString() {
-		return "Tarea [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fechaInicio="
-				+ fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", localizacion=" + localizacion
-				+ ", trabajoIndividual=" + trabajoIndividual + ", estado=" + estado + ", maximoVoluntario="
-				+ maximoVoluntario + ", minimoVoluntario=" + minimoVoluntario + ", listaVoluntarios=" + listaVoluntarios
-				+ ", listaAptitudes=" + listaAptitudes + ", listaRecursos=" + listaRecursos + ", proyecto=" + proyecto
-				+ "]";
+		return "\nTarea [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha inicio="
+				+ fechaInicio + ", fecha finalizacion=" + fechaFinalizacion + ", estado=" + estado + ", maximos voluntarios="
+				+ maximoVoluntario + ", minimo voluntarios=" + minimoVoluntario;
 	}
 	
 }

@@ -3,7 +3,7 @@ package modelo;
 import java.util.Date;
 import java.util.List;
 
-public interface TareaImpl {
+public interface TareaInterface {
 
 	int getId();
 
@@ -57,9 +57,9 @@ public interface TareaImpl {
 
 	void setListaRecursos(List<Recurso> listaRecursos);
 
-	ProyectoImpl getProyecto();
+	Proyecto getProyecto();
 
-	void setProyecto(ProyectoImpl proyecto);
+	void setProyecto(Proyecto proyecto);
 
 	int hashCode();
 

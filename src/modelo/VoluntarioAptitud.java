@@ -10,12 +10,12 @@ import javax.persistence.ManyToOne;
 public class VoluntarioAptitud {
 	@Id
 	@ManyToOne
-	private VoluntarioImpl voluntario;
+	private Voluntario voluntario;
 	@Id
 	@ManyToOne
-	private AptitudImpl aptitud;
+	private Aptitud aptitud;
 
-	public VoluntarioAptitud(VoluntarioImpl voluntario, AptitudImpl aptitud) {
+	public VoluntarioAptitud(Voluntario voluntario, Aptitud aptitud) {
 		this.voluntario = voluntario;
 		this.aptitud = aptitud;
 	}
@@ -24,19 +24,19 @@ public class VoluntarioAptitud {
 
 	}
 
-	public VoluntarioImpl getVoluntario() {
+	public Voluntario getVoluntario() {
 		return voluntario;
 	}
 
-	public void setVoluntario(VoluntarioImpl voluntario) {
+	public void setVoluntario(Voluntario voluntario) {
 		this.voluntario = voluntario;
 	}
 
-	public AptitudImpl getAptitud() {
+	public Aptitud getAptitud() {
 		return aptitud;
 	}
 
-	public void setAptitud(AptitudImpl aptitud) {
+	public void setAptitud(Aptitud aptitud) {
 		this.aptitud = aptitud;
 	}
 

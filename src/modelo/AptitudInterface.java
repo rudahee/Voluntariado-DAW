@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.List;
 
-public interface AptitudImpl {
+public interface AptitudInterface {
 
 	int getId();
 

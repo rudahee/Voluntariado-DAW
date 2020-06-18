@@ -10,14 +10,14 @@ import javax.persistence.ManyToOne;
 public class VoluntarioTarea {
 	@Id
 	@ManyToOne
-	private TareaImpl tarea;
+	private Tarea tarea;
 	@Id
 	@ManyToOne
-	private VoluntarioImpl voluntario;
+	private Voluntario voluntario;
 	private String feedbackDeVoluntario;
 	private String feedbackDeTarea;
 
-	public VoluntarioTarea(TareaImpl tarea, VoluntarioImpl voluntario) {
+	public VoluntarioTarea(Tarea tarea, Voluntario voluntario) {
 		this.tarea = tarea;
 		this.voluntario = voluntario;
 	}
@@ -26,19 +26,21 @@ public class VoluntarioTarea {
 
 	}
 
-	public TareaImpl getTarea() {
+	public Tarea getTarea() {
 		return tarea;
 	}
+	
+	
 
-	public void setTarea(TareaImpl tarea) {
+	public void setTarea(Tarea tarea) {
 		this.tarea = tarea;
 	}
 
-	public VoluntarioImpl getVoluntario() {
+	public VoluntarioInterface getVoluntario() {
 		return voluntario;
 	}
 
-	public void setVoluntario(VoluntarioImpl voluntario) {
+	public void setVoluntario(Voluntario voluntario) {
 		this.voluntario = voluntario;
 	}
 
@@ -91,7 +93,7 @@ public class VoluntarioTarea {
 
 	@Override
 	public String toString() {
-		return "VoluntarioTarea [tarea=" + tarea + ", voluntario=" + voluntario + ", feedbackDeVoluntario="
+		return "\nVoluntarioTarea [tarea=" + tarea.getId() + ", voluntario=" + voluntario.getId() + ", feedbackDeVoluntario="
 				+ feedbackDeVoluntario + ", feedbackDeTarea=" + feedbackDeTarea + "]";
 	}
 

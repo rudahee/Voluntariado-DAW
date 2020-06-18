@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Proyecto implements ProyectoImpl {
+public class Proyecto implements ProyectoInterface {
 
 	@Id
 	@GeneratedValue
@@ -25,7 +25,7 @@ public class Proyecto implements ProyectoImpl {
 	@OneToMany(mappedBy = "proyecto")
 	private List<Voluntario> voluntarios;
 	@ManyToOne
-	private OrganizacionImpl organizacion;
+	private Organizacion organizacion;
 
 	public Proyecto(String nombre, String descripcion, String localizacion, Date fechaInicio,
 			Date fechaFinalizacion) {
@@ -107,11 +107,11 @@ public class Proyecto implements ProyectoImpl {
 		this.voluntarios = voluntarios;
 	}
 	@Override
-	public OrganizacionImpl getOrganizacion() {
+	public Organizacion getOrganizacion() {
 		return organizacion;
 	}
 	@Override
-	public void setOrganizacion(OrganizacionImpl organizacion) {
+	public void setOrganizacion(Organizacion organizacion) {
 		this.organizacion = organizacion;
 	}
 	
@@ -139,7 +139,6 @@ public class Proyecto implements ProyectoImpl {
 	@Override
 	public void addVoluntario(Voluntario voluntario) {
 		voluntarios.add(voluntario);
-		voluntario.setProyecto(this);
 	}
 	
 	@Override
@@ -149,9 +148,8 @@ public class Proyecto implements ProyectoImpl {
 
 	@Override
 	public String toString() {
-		return "Proyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
+		return "\nProyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
 				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion
-				+ ", listaTareas=" + listaTareas + ", voluntarios=" + voluntarios + ", organizacion=" + organizacion
 				+ "]";
 	}
 	

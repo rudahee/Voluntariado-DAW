@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.List;
 
-public interface OrganizacionImpl {
+public interface OrganizacionInterface {
 
 	int getId();
 

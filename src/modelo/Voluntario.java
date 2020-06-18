@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Voluntario implements VoluntarioImpl {
+public class Voluntario implements VoluntarioInterface {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -20,7 +20,7 @@ public class Voluntario implements VoluntarioImpl {
 	@OneToMany(mappedBy = "voluntario")
 	private List<VoluntarioTarea> listaTareas;
 	@ManyToOne
-	private ProyectoImpl proyecto;
+	private Proyecto proyecto;
 
 
 	public Voluntario(String nombre, String apellido) {
@@ -86,14 +86,13 @@ public class Voluntario implements VoluntarioImpl {
 	}
 
 	@Override
-	public ProyectoImpl getProyecto() {
+	public Proyecto getProyecto() {
 		return proyecto;
 	}
 
 	@Override
-	public void setProyecto(ProyectoImpl proyecto) {
+	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
-		
 	}
 
 	@Override
@@ -116,6 +115,11 @@ public class Voluntario implements VoluntarioImpl {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "\nVoluntario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "proyecto activo=" + getProyecto() + "\ntareas=" + listaTareas.toString() +"]";
 	}
 
 }

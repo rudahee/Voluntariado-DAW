@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Aptitud implements AptitudImpl {
+public class Aptitud implements AptitudInterface {
 
 	@Id
 	@GeneratedValue

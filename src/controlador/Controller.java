@@ -13,14 +13,17 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import modelo.Aptitud;
 import modelo.Organizacion;
-import modelo.OrganizacionImpl;
+import modelo.OrganizacionInterface;
 import modelo.Proyecto;
-import modelo.ProyectoImpl;
+import modelo.ProyectoInterface;
 import modelo.Tarea;
-import modelo.TareaImpl;
+import modelo.TareaAptitud;
+import modelo.TareaInterface;
 import modelo.Voluntario;
-import modelo.VoluntarioImpl;
+import modelo.VoluntarioAptitud;
+import modelo.VoluntarioInterface;
 import modelo.VoluntarioTarea;
 import modelo.VoluntarioTareaId;
 import modelo.estadoEnum;
@@ -29,13 +32,13 @@ public class Controller {
 	StandardServiceRegistry sr;
 	SessionFactory sf;
 	Session session;
+	
 	public Controller() {
 
 		sr = new StandardServiceRegistryBuilder().configure().build();
 		sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
 
-		session = sf.openSession();
-		
+		session = sf.openSession();		
 	}
 	
 	public void salir() {
@@ -45,15 +48,16 @@ public class Controller {
 	
 	
 	/* ORGANIZACION */
-	
-	public OrganizacionImpl obtenerOrganizacion(int id) {
-		OrganizacionImpl g = session.get(Organizacion.class, id);
-		
-		return g;
-	}
 
-	public OrganizacionImpl crearOrganizacion(String nombre) {
-		OrganizacionImpl g = new Organizacion(nombre);
+	
+	public Organizacion obtenerOrganizacion(int id) {
+		Organizacion o = session.get(Organizacion.class, id);
+		
+		return o;
+	}
+	
+	public Organizacion crearOrganizacion(String nombre) {
+		Organizacion g = new Organizacion(nombre);
 		session.getTransaction().begin();
 		
 		session.save(g);
@@ -64,7 +68,7 @@ public class Controller {
 	}
 
 	public boolean comprobarOrganizacion(int id) {
-		OrganizacionImpl g = session.get(Organizacion.class, id);
+		OrganizacionInterface g = session.get(Organizacion.class, id);
 
 		if (g.getId() == id) {
 			return false;
@@ -74,7 +78,7 @@ public class Controller {
 	}
 
 	public void crearProyecto(String nombre, String descripcion, String localizacion, 
-			Date fechaInicio, Date fechaFinalizacion, OrganizacionImpl o) {
+			Date fechaInicio, Date fechaFinalizacion, Organizacion o) {
 		
 		session.getTransaction().begin();
 		Proyecto p = new Proyecto(nombre, descripcion, localizacion, fechaInicio, fechaFinalizacion);
@@ -89,18 +93,18 @@ public class Controller {
 	public void crearTarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
 			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, int proyecto) {
 		
-		ProyectoImpl p = session.get(Proyecto.class, proyecto);
+		Proyecto p = session.get(Proyecto.class, proyecto);
 		
 		session.getTransaction().begin();
 		
-		TareaImpl t = new Tarea(nombre, descripcion, fechaInicio, fechaFinalizacion, localizacion, maximoVoluntario, minimoVoluntario, trabajoIndividual, p);
+		TareaInterface t = new Tarea(nombre, descripcion, fechaInicio, fechaFinalizacion, localizacion, maximoVoluntario, minimoVoluntario, trabajoIndividual, p);
 		
 		session.save(t);
 		session.getTransaction().commit();
 		session.clear();
 	}
 	
-	public String verProyectosOrganizacion(OrganizacionImpl organizacion) {
+	public String verProyectosOrganizacion(Organizacion organizacion) {
 		StringBuilder sb = new StringBuilder();
 		
 		List<Proyecto> proyectos  = organizacion.getListaProyectos();
@@ -126,24 +130,9 @@ public class Controller {
 		
 		return sb.toString();
 	}
-	
-	public void CrearTarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
-			String localizacion, int maximoVoluntario, int minimoVoluntario, 
-			boolean trabajoIndividual, int proyecto) {
-		 
-		ProyectoImpl p = session.get(Proyecto.class, proyecto);
-		
-		session.getTransaction().begin();		
-	
-		TareaImpl t = new Tarea(nombre, descripcion, fechaInicio, fechaFinalizacion, localizacion, maximoVoluntario, minimoVoluntario, trabajoIndividual, p);
-
-		session.save(t);
-		session.getTransaction().commit();
-		session.clear();
-	}
 		
 	public void empezarTarea(int tareaId) {
-		TareaImpl t = session.get(Tarea.class, tareaId);
+		Tarea t = session.get(Tarea.class, tareaId);
 		
 		if (t.getListaVoluntarios().size() < t.getMaximoVoluntario() && t.getListaVoluntarios().size() > t.getMinimoVoluntario()) {
 			t.setEstado(estadoEnum.CREADA);
@@ -152,20 +141,20 @@ public class Controller {
 	}
 	
 	public void finalizarTarea(int tareaId) {
-		TareaImpl t = session.get(Tarea.class, tareaId);
+		Tarea t = session.get(Tarea.class, tareaId);
 		
 		t.setEstado(estadoEnum.CERRADA);
 	}
 	
 	public void cancelarTarea(int tareaId) {
-		TareaImpl t = session.get(Tarea.class, tareaId);
+		Tarea t = session.get(Tarea.class, tareaId);
 		
 		t.setEstado(estadoEnum.CANCELADA);	
 	}
 	
 	public String verVoluntariosTarea(int tareaId) {
 		StringBuilder sb = new StringBuilder();	
-		TareaImpl t = session.get(Tarea.class, tareaId);
+		Tarea t = session.get(Tarea.class, tareaId);
 		
 		List<VoluntarioTarea> voluntarios = t.getListaVoluntarios();
 		
@@ -180,7 +169,7 @@ public class Controller {
 		
 	}
 	
-	public void darFeedback(String feedback, int idTarea, int idVoluntario) {
+	public void darFeedbackDeVoluntarios(String feedback, int idTarea, int idVoluntario) {
 		VoluntarioTareaId vti = new VoluntarioTareaId(idVoluntario, idTarea);
 		
 		VoluntarioTarea vt = session.get(VoluntarioTarea.class, vti);
@@ -199,7 +188,7 @@ public class Controller {
 	/* VOLUNTARIO */
 	
 	public boolean comprobarUsuario(int id) {
-		VoluntarioImpl v = session.get(Voluntario.class, id);
+		Voluntario v = session.get(Voluntario.class, id);
 
 		if (v.getId() == id) {
 			return false;
@@ -208,8 +197,8 @@ public class Controller {
 		}
 	}
 
-	public VoluntarioImpl crearVoluntario(String nombre, String apellidos) {
-		VoluntarioImpl v = new Voluntario(nombre, apellidos);
+	public Voluntario crearVoluntario(String nombre, String apellidos) {
+		Voluntario v = new Voluntario(nombre, apellidos);
 		session.getTransaction().begin();
 		
 		session.save(v);
@@ -219,32 +208,38 @@ public class Controller {
 		return v;
 	}
 
-	public VoluntarioImpl obtenerVoluntario(int id) {
-		VoluntarioImpl v = session.get(Voluntario.class, id);
+	public Voluntario obtenerVoluntario(int id) {
+		Voluntario v = session.get(Voluntario.class, id);
 		
 		return v;
 	}
 	
 	public String verProyectos() {
-		Query query  =  session.createQuery("SELECT id, nombre, descripcion, fechaInicio, fechaFinalizacion FROM PROYECTO");
-
+		Query query  =  session.createQuery("SELECT id, nombre, descripcion, fechaInicio, fechaFinalizacion FROM Proyecto");
 		StringBuilder sb = new StringBuilder();
 		Iterator it = query.getResultList().iterator();
-		sb.append("== ID  -  NOMBRE  -  DESCRIPCION - FECHA INICIO - FECHA FIN ==\n");
+		
+		sb.append("ID\tnombre\t\tdescripcion\t\tfechaInicio\t\tfechaFinalizacion\n");
+		sb.append("==============================================================================================\n");
+		
 		while (it.hasNext()) {
-			ProyectoImpl proyecto = (ProyectoImpl) it.next();	
-			sb.append(proyecto.getId() + " " + proyecto.getNombre() + " " + proyecto.getDescripcion() + " " + proyecto.getFechaInicio() + " " + proyecto.getFechaFinalizacion()+"\n");
+			Object[] objs = (Object[]) it.next();
+			for (Object obj: objs) {
+				sb.append(obj.toString() + "\t");
+			}
+			sb.append("\n");
 		}
-				
 		return sb.toString();
 	}
 
 	public void unirseProyecto(Voluntario v, int idProyecto) {
+		Proyecto p = session.get(Proyecto.class, idProyecto);
+		
 		session.getTransaction().begin();		
 		
-		ProyectoImpl p = session.get(Proyecto.class, idProyecto);
 		p.addVoluntario(v);
-
+		v.setProyecto(p);
+		
 		session.save(v);
 		session.save(p);
 		session.getTransaction().commit();
@@ -252,37 +247,47 @@ public class Controller {
 	}
 	
 	public String tareasEnProyecto(int idProyecto) {
-		ProyectoImpl p = session.get(Proyecto.class, idProyecto);
+		Proyecto p = session.get(Proyecto.class, idProyecto);
 		StringBuilder sb = new StringBuilder();
 		Iterator it = p.getListaTareas().iterator();
+			
+		System.out.println(it);
 		
 		while (it.hasNext()) {
-			sb.append(it.next().toString());
+			sb.append(it.next());
 		}
 		return sb.toString();
-		
 	}
 	
-	public void unirseTarea(int idTarea, VoluntarioImpl v) {
-		session.getTransaction().begin();		
+	public boolean unirseTarea(int idTarea, Voluntario v) {
+		boolean devolver = false;
 		
-		TareaImpl t = session.get(Tarea.class, idTarea);
-		
-		VoluntarioTarea vt = new VoluntarioTarea(t, v);
-		
-		session.save(vt);
-		session.getTransaction().commit();
-		session.clear();
+		Tarea t = session.get(Tarea.class, idTarea);
+
+		if (t.getEstado() != estadoEnum.CREADA) {
+			devolver = false;
+		} else {
+			try {
+				session.getTransaction().begin();		
+				
+				VoluntarioTarea vt = new VoluntarioTarea(t, v);
+				
+				session.save(vt);
+				session.getTransaction().commit();
+				session.clear();	
+				
+				devolver = true;
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+			
+		}
+		return devolver;
 	}
-	
-	
-	
-	
-	
 	
 	/****************************************************************/
-	public String verTareas(VoluntarioImpl v) {
-		ProyectoImpl p = v.getProyecto();
+	public String verTareas(Voluntario v) {
+		Proyecto p = v.getProyecto();
 		Iterator<Tarea> it = p.getListaTareas().iterator();
 		StringBuilder sb = new StringBuilder();
 		
@@ -292,4 +297,44 @@ public class Controller {
 		return sb.toString();
 	}
 
-}
+	public Aptitud crearAptitud(String nombre, String descripcion, boolean adquirible) {
+		
+		session.getTransaction().begin();		
+		
+		Aptitud a = new Aptitud(nombre, descripcion, adquirible);
+
+		session.save(a);
+		session.getTransaction().commit();
+		session.clear();	
+		
+		return a;
+	}
+	
+	public void darAptitudVoluntario(int idA, int idV) {
+		Voluntario v = session.get(Voluntario.class, idV);
+		Aptitud a = session.get(Aptitud.class, idA);
+		
+		session.getTransaction().begin();		
+		
+		VoluntarioAptitud va = new VoluntarioAptitud(v, a);
+		
+		session.save(va);
+		session.getTransaction().commit();
+		session.clear();	
+	}
+
+	public void darFeedbackDeTarea(String feedback, int idTarea, int idVoluntario) {
+		
+		VoluntarioTareaId vti = new VoluntarioTareaId(idVoluntario, idTarea);
+		
+		VoluntarioTarea vt = session.get(VoluntarioTarea.class, vti);
+		
+		session.getTransaction().begin();		
+		
+		vt.setFeedbackDeTarea(feedback);	
+		
+		session.save(vt);
+		session.getTransaction().commit();
+		session.clear();
+	}
+}		

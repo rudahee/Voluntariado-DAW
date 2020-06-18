@@ -10,9 +10,8 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
-		<!-- SOLO DESCOMENTAR BAJO PROPIO RIESGO (Puede sobreescribir los datos 
-			de tu bbdd) -->
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<!-- (Puede sobreescribir los datos de tu bbdd) -->
+		<!--  <property name="hibernate.hbm2ddl.auto">create</property>  -->
 		<mapping class="modelo.Aptitud" />
 		<mapping class="modelo.Organizacion" />
 		<mapping class="modelo.Proyecto" />
@@ -22,6 +21,5 @@
 		<mapping class="modelo.TareaAptitud" />
 		<mapping class="modelo.VoluntarioAptitud" />
 		<mapping class="modelo.VoluntarioTarea" />
-
 	</session-factory>
 </hibernate-configuration>
