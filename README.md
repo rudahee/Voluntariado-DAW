@@ -10,7 +10,7 @@
    1. Diagrama de clase
    2. Diagrama de casos de uso
    3. Diagrama de secuencia
-4. Scripts de creacion sobre la base de datos
+4. [Scripts de creacion sobre la base de datos](#script-de-creacion)
 
 ## Presentacion del proyecto
 
@@ -31,8 +31,11 @@ El enunciado del proyecto se puede encontrar [aqui.](https://drive.google.com/fi
 click para ver:
 
 [**Diagrama de clase**](https://i.imgur.com/N3fVfpe.jpeg)
+
 **Diagrama de casos de uso**
+
 [**Diagrama de secuencia (Parte 1)**](https://i.imgur.com/GQKEVeM.jpeg)
+
 [**Diagrama de secuencia (Parte 2)**](https://i.imgur.com/QdNsBv0.jpeg)
 
 ## Script de creacion
