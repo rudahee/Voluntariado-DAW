@@ -8,6 +8,11 @@ import javax.persistence.ManyToOne;
 @Entity
 @IdClass(VoluntarioTareaId.class)
 public class VoluntarioTarea {
+
+	/*
+	 * = CLASE VOLUNTARIOTAREA =
+	 */
+
 	@Id
 	@ManyToOne
 	private Tarea tarea;
@@ -17,6 +22,10 @@ public class VoluntarioTarea {
 	private String feedbackDeVoluntario;
 	private String feedbackDeTarea;
 
+	/*
+	 * Constructores
+	 */
+	
 	public VoluntarioTarea(Tarea tarea, Voluntario voluntario) {
 		this.tarea = tarea;
 		this.voluntario = voluntario;
@@ -26,11 +35,13 @@ public class VoluntarioTarea {
 
 	}
 
+	/*
+	 * Getters y setters
+	 */
+
 	public Tarea getTarea() {
 		return tarea;
 	}
-	
-	
 
 	public void setTarea(Tarea tarea) {
 		this.tarea = tarea;
@@ -60,6 +71,10 @@ public class VoluntarioTarea {
 		this.feedbackDeTarea = feedbackDeTarea;
 	}
 
+	/*
+	 * Hashcode, equals, toString
+	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,8 +108,8 @@ public class VoluntarioTarea {
 
 	@Override
 	public String toString() {
-		return "\nVoluntarioTarea [tarea=" + tarea.getId() + ", voluntario=" + voluntario.getId() + ", feedbackDeVoluntario="
-				+ feedbackDeVoluntario + ", feedbackDeTarea=" + feedbackDeTarea + "]";
+		return "\nVoluntarioTarea [tarea=" + tarea.getId() + ", voluntario=" + voluntario.getId()
+				+ ", feedbackDeVoluntario=" + feedbackDeVoluntario + ", feedbackDeTarea=" + feedbackDeTarea + "]";
 	}
 
 }

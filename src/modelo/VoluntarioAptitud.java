@@ -8,6 +8,11 @@ import javax.persistence.ManyToOne;
 @Entity
 @IdClass(VoluntarioAptitudId.class)
 public class VoluntarioAptitud {
+
+	/*
+	 * = CLASE VOLUNTARIOAPTITUD =
+	 */
+
 	@Id
 	@ManyToOne
 	private Voluntario voluntario;
@@ -15,6 +20,9 @@ public class VoluntarioAptitud {
 	@ManyToOne
 	private Aptitud aptitud;
 
+	/*
+	 * Constructores
+	 */
 	public VoluntarioAptitud(Voluntario voluntario, Aptitud aptitud) {
 		this.voluntario = voluntario;
 		this.aptitud = aptitud;
@@ -23,6 +31,10 @@ public class VoluntarioAptitud {
 	public VoluntarioAptitud() {
 
 	}
+
+	/*
+	 * Getters y setters
+	 */
 
 	public Voluntario getVoluntario() {
 		return voluntario;
@@ -39,6 +51,10 @@ public class VoluntarioAptitud {
 	public void setAptitud(Aptitud aptitud) {
 		this.aptitud = aptitud;
 	}
+
+	/*
+	 * Hashcode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

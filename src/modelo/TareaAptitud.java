@@ -8,6 +8,11 @@ import javax.persistence.ManyToOne;
 @Entity
 @IdClass(TareaAptitudId.class)
 public class TareaAptitud {
+
+	/*
+	 * = CLASE TAREA-APTITUD =
+	 */
+
 	@Id
 	@ManyToOne
 	private Tarea tarea;
@@ -15,6 +20,9 @@ public class TareaAptitud {
 	@ManyToOne
 	private Aptitud aptitud;
 
+	/*
+	 * Constructores
+	 */
 	public TareaAptitud(Tarea tarea, Aptitud aptitud) {
 		this.tarea = tarea;
 		this.aptitud = aptitud;
@@ -24,6 +32,9 @@ public class TareaAptitud {
 
 	}
 
+	/*
+	 * Getters y setters
+	 */
 	public Tarea getTarea() {
 		return tarea;
 	}
@@ -39,6 +50,10 @@ public class TareaAptitud {
 	public void setAptitud(Aptitud aptitud) {
 		this.aptitud = aptitud;
 	}
+
+	/*
+	 * Hashcode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

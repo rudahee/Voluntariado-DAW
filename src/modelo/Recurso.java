@@ -7,6 +7,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Recurso implements RecursoInterface {
+
+	/*
+	 * = CLASE RECURSO =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -14,15 +19,24 @@ public class Recurso implements RecursoInterface {
 	private int cantidad;
 	@ManyToOne
 	private Tarea tarea;
-	
+
+	/*
+	 * Constructores
+	 */
+
 	public Recurso(String nombre, int cantidad, Tarea tarea) {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.tarea = tarea;
 	}
+
 	public Recurso() {
 
 	}
+
+	/*
+	 * Getters y Setters
+	 */
 
 	@Override
 	public int getId() {
@@ -63,6 +77,10 @@ public class Recurso implements RecursoInterface {
 	public void setTarea(Tarea tarea) {
 		this.tarea = tarea;
 	}
+
+	/*
+	 * hashCode, equals
+	 */
 
 	@Override
 	public int hashCode() {

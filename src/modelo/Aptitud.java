@@ -10,6 +10,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Aptitud implements AptitudInterface {
 
+	/*
+	 * = CLASE APTITUD =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -21,6 +25,9 @@ public class Aptitud implements AptitudInterface {
 	@OneToMany(mappedBy = "aptitud")
 	private List<VoluntarioAptitud> listaVoluntarios;
 
+	/*
+	 * Constructores
+	 */
 
 	public Aptitud(String nombre, String descripcion, boolean adquirible) {
 		this.nombre = nombre;
@@ -34,6 +41,10 @@ public class Aptitud implements AptitudInterface {
 		listaTareas = new ArrayList<TareaAptitud>();
 		listaVoluntarios = new ArrayList<VoluntarioAptitud>();
 	}
+
+	/*
+	 * Getters y Setters
+	 */
 
 	@Override
 	public int getId() {
@@ -94,6 +105,10 @@ public class Aptitud implements AptitudInterface {
 	public void setListaVoluntarios(List<VoluntarioAptitud> listaVoluntarios) {
 		this.listaVoluntarios = listaVoluntarios;
 	}
+
+	/*
+	 * Hashcode, equals.
+	 */
 
 	@Override
 	public int hashCode() {

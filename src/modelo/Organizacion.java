@@ -10,6 +10,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Organizacion implements OrganizacionInterface {
 
+	/*
+	 * = CLASE ORGANIZACION =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -17,14 +21,22 @@ public class Organizacion implements OrganizacionInterface {
 	@OneToMany(mappedBy = "organizacion")
 	private List<Proyecto> listaProyectos;
 
+	/*
+	 * Constructores
+	 */
+
 	public Organizacion(String nombre) {
 		this.nombre = nombre;
 		listaProyectos = new ArrayList<Proyecto>();
 	}
-	
+
 	public Organizacion() {
 		listaProyectos = new ArrayList<Proyecto>();
 	}
+
+	/*
+	 * Getters y Setters
+	 */
 
 	@Override
 	public int getId() {
@@ -64,6 +76,10 @@ public class Organizacion implements OrganizacionInterface {
 		return result;
 	}
 
+	/*
+	 * Hashcode, equals y toString
+	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,10 +99,14 @@ public class Organizacion implements OrganizacionInterface {
 		return "Organizacion [id=" + id + ", nombre=" + nombre + ", listaProyectos=" + listaProyectos + "]";
 	}
 
+	/*
+	 * Otros metodos
+	 */
+
 	@Override
 	public void addProyecto(Proyecto proyecto) {
 		listaProyectos.add(proyecto);
 		proyecto.setOrganizacion(this);
 	}
-	
+
 }

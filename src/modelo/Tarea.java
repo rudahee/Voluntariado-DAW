@@ -12,6 +12,11 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Tarea implements TareaInterface {
+
+	/*
+	 * = CLASE PROYECTO =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -25,7 +30,7 @@ public class Tarea implements TareaInterface {
 	private estadoEnum estado;
 	private int maximoVoluntario;
 	private int minimoVoluntario;
-	
+
 	@OneToMany(mappedBy = "tarea")
 	private List<VoluntarioTarea> listaVoluntarios;
 	@OneToMany(mappedBy = "tarea")
@@ -35,9 +40,12 @@ public class Tarea implements TareaInterface {
 	@ManyToOne
 	private Proyecto proyecto;
 
+	/*
+	 * Constructores
+	 */
 
-	public Tarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
-			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, Proyecto proyecto) {
+	public Tarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion, String localizacion,
+			int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, Proyecto proyecto) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaInicio = fechaInicio;
@@ -58,8 +66,11 @@ public class Tarea implements TareaInterface {
 		listaVoluntarios = new ArrayList<VoluntarioTarea>();
 		listaAptitudes = new ArrayList<TareaAptitud>();
 		listaRecursos = new ArrayList<Recurso>();
-
 	}
+
+	/*
+	 * Getters y Setters
+	 */
 
 	@Override
 	public int getId() {
@@ -202,6 +213,10 @@ public class Tarea implements TareaInterface {
 		proyecto.addTarea(this);
 	}
 
+	/*
+	 * hashCode, equals y toString
+	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -225,16 +240,20 @@ public class Tarea implements TareaInterface {
 	}
 
 	@Override
+	public String toString() {
+		return "\nTarea [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha inicio="
+				+ fechaInicio + ", fecha finalizacion=" + fechaFinalizacion + ", estado=" + estado
+				+ ", maximos voluntarios=" + maximoVoluntario + ", minimo voluntarios=" + minimoVoluntario;
+	}
+
+	/*
+	 * Otros metodos.
+	 */
+
+	@Override
 	public void addRecurso(Recurso recurso) {
 		listaRecursos.add(recurso);
 		recurso.setTarea(this);
 	}
 
-	@Override
-	public String toString() {
-		return "\nTarea [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha inicio="
-				+ fechaInicio + ", fecha finalizacion=" + fechaFinalizacion + ", estado=" + estado + ", maximos voluntarios="
-				+ maximoVoluntario + ", minimo voluntarios=" + minimoVoluntario;
-	}
-	
 }

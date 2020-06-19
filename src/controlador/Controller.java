@@ -34,7 +34,6 @@ public class Controller {
 	Session session;
 	
 	public Controller() {
-
 		sr = new StandardServiceRegistryBuilder().configure().build();
 		sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
 

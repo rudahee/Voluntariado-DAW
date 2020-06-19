@@ -10,6 +10,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Voluntario implements VoluntarioInterface {
+	/*
+	 * = CLASE VOLUNTARIO =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -22,6 +26,9 @@ public class Voluntario implements VoluntarioInterface {
 	@ManyToOne
 	private Proyecto proyecto;
 
+	/*
+	 * Constructores
+	 */
 
 	public Voluntario(String nombre, String apellido) {
 		this.nombre = nombre;
@@ -29,11 +36,15 @@ public class Voluntario implements VoluntarioInterface {
 		listaAptitudes = new ArrayList<VoluntarioAptitud>();
 		listaTareas = new ArrayList<VoluntarioTarea>();
 	}
-	
+
 	public Voluntario() {
 		listaAptitudes = new ArrayList<VoluntarioAptitud>();
 		listaTareas = new ArrayList<VoluntarioTarea>();
 	}
+
+	/*
+	 * Getters y setters
+	 */
 
 	@Override
 	public int getId() {
@@ -95,6 +106,10 @@ public class Voluntario implements VoluntarioInterface {
 		this.proyecto = proyecto;
 	}
 
+	/*
+	 * Hashcode, equals y toString
+	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -119,7 +134,8 @@ public class Voluntario implements VoluntarioInterface {
 
 	@Override
 	public String toString() {
-		return "\nVoluntario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "proyecto activo=" + getProyecto() + "\ntareas=" + listaTareas.toString() +"]";
+		return "\nVoluntario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "proyecto activo="
+				+ getProyecto() + "\ntareas=" + listaTareas.toString() + "]";
 	}
 
 }

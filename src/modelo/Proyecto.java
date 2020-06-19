@@ -12,6 +12,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Proyecto implements ProyectoInterface {
 
+	/*
+	 * = CLASE PROYECTO =
+	 */
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -27,8 +31,11 @@ public class Proyecto implements ProyectoInterface {
 	@ManyToOne
 	private Organizacion organizacion;
 
-	public Proyecto(String nombre, String descripcion, String localizacion, Date fechaInicio,
-			Date fechaFinalizacion) {
+	/*
+	 * Constructores
+	 */
+
+	public Proyecto(String nombre, String descripcion, String localizacion, Date fechaInicio, Date fechaFinalizacion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.localizacion = localizacion;
@@ -39,82 +46,108 @@ public class Proyecto implements ProyectoInterface {
 	}
 
 	public Proyecto() {
-		
+		listaTareas = new ArrayList<Tarea>();
+		voluntarios = new ArrayList<Voluntario>();
 	}
-	
+
+	/*
+	 * Getters y Setters
+	 */
+
 	@Override
 	public int getId() {
 		return id;
 	}
+
 	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	@Override
 	public String getNombre() {
 		return nombre;
 	}
+
 	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	@Override
 	public String getLocalizacion() {
 		return localizacion;
 	}
+
 	@Override
 	public void setLocalizacion(String localizacion) {
 		this.localizacion = localizacion;
 	}
+
 	@Override
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
+
 	@Override
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+
 	@Override
 	public Date getFechaFinalizacion() {
 		return fechaFinalizacion;
 	}
+
 	@Override
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
 	}
+
 	@Override
 	public List<Tarea> getListaTareas() {
 		return listaTareas;
 	}
+
 	@Override
 	public void setListaTareas(List<Tarea> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
+
 	@Override
 	public List<Voluntario> getVoluntarios() {
 		return voluntarios;
 	}
+
 	@Override
 	public void setVoluntarios(List<Voluntario> voluntarios) {
 		this.voluntarios = voluntarios;
 	}
+
 	@Override
 	public Organizacion getOrganizacion() {
 		return organizacion;
 	}
+
 	@Override
 	public void setOrganizacion(Organizacion organizacion) {
 		this.organizacion = organizacion;
 	}
-	
+
+	/*
+	 * Hashcode, equals, toString
+	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -122,6 +155,7 @@ public class Proyecto implements ProyectoInterface {
 		result = prime * result + id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -137,21 +171,23 @@ public class Proyecto implements ProyectoInterface {
 	}
 
 	@Override
+	public String toString() {
+		return "\nProyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
+				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + "]";
+	}
+
+	/*
+	 * Otros metodos
+	 */
+
+	@Override
 	public void addVoluntario(Voluntario voluntario) {
 		voluntarios.add(voluntario);
 	}
-	
+
 	@Override
 	public void addTarea(Tarea tarea) {
 		listaTareas.add(tarea);
 	}
 
-	@Override
-	public String toString() {
-		return "\nProyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
-				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion
-				+ "]";
-	}
-	
-	
 }
