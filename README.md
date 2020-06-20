@@ -32,7 +32,7 @@ click para ver:
 
 [**Diagrama de clase**](https://i.imgur.com/N3fVfpe.jpeg)
 
-**Diagrama de casos de uso**
+[**Diagrama de casos de uso**](https://docs.google.com/document/d/15qUfZWYy-BbZNB15j58_rVtP83T_6ZX79xkNaPghL1g/edit?usp=sharing)
 
 [**Diagrama de secuencia (Parte 1)**](https://i.imgur.com/GQKEVeM.jpeg)
 
