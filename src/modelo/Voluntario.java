@@ -134,8 +134,8 @@ public class Voluntario implements VoluntarioInterface {
 
 	@Override
 	public String toString() {
-		return "\nVoluntario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "proyecto activo="
-				+ getProyecto() + "\ntareas=" + listaTareas.toString() + "]";
+		return "\nVoluntario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + " proyecto activo="
+				+ getProyecto().getId() + "\ntareas=" + listaTareas + "]";
 	}
 
 }

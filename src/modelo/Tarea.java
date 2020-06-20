@@ -210,7 +210,6 @@ public class Tarea implements TareaInterface {
 	@Override
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
-		proyecto.addTarea(this);
 	}
 
 	/*

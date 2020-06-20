@@ -11,7 +11,7 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<!-- (Puede sobreescribir los datos de tu bbdd) -->
-		<!--  <property name="hibernate.hbm2ddl.auto">create</property>  -->
+		<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
 		<mapping class="modelo.Aptitud" />
 		<mapping class="modelo.Organizacion" />
 		<mapping class="modelo.Proyecto" />

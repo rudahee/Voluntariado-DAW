@@ -173,7 +173,7 @@ public class Proyecto implements ProyectoInterface {
 	@Override
 	public String toString() {
 		return "\nProyecto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", localizacion="
-				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + "]";
+				+ localizacion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + " tareas=" + listaTareas + "]";
 	}
 
 	/*

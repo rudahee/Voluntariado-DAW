@@ -13,6 +13,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import excepciones.LimiteFechaException;
+import excepciones.cantidadVoluntariosException;
 import modelo.Aptitud;
 import modelo.Organizacion;
 import modelo.OrganizacionInterface;
@@ -63,8 +65,8 @@ public class Controller {
 	public Organizacion crearOrganizacion(String nombre) {
 		// creamos una organizacion y la agregamos a la base de datos
 
-		Organizacion organizacion = new Organizacion(nombre);
 		session.getTransaction().begin();
+		Organizacion organizacion = new Organizacion(nombre);
 
 		session.save(organizacion);
 		session.getTransaction().commit();
@@ -102,20 +104,28 @@ public class Controller {
 	}
 
 	public void crearTarea(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion,
-			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, int proyecto) {
+			String localizacion, int maximoVoluntario, int minimoVoluntario, boolean trabajoIndividual, int proyecto) throws LimiteFechaException {
 		// creamos una tarea y la agregamos a la base de datos
 
-		Proyecto p = session.get(Proyecto.class, proyecto);
-
 		session.getTransaction().begin();
+		Proyecto p = session.get(Proyecto.class, proyecto);
 
 		// Pertece a un proyecto
 		Tarea t = new Tarea(nombre, descripcion, fechaInicio, fechaFinalizacion, localizacion, maximoVoluntario,
 				minimoVoluntario, trabajoIndividual, p);
-
+		
+		if (!comprobarFechaInicial(fechaInicio, p.getFechaInicio()) || !comprobarFechaFinal(fechaFinalizacion, p.getFechaFinalizacion()) ) {
+			throw new LimiteFechaException("Las fechas de las tareas no estan en los parametros");
+		}
+		
+		p.addTarea(t);
+		
 		session.save(t);
+		session.update(p);
 		session.getTransaction().commit();
 		session.clear();
+		
+		
 	}
 
 	public String verProyectosOrganizacion(Organizacion organizacion) {
@@ -137,8 +147,9 @@ public class Controller {
 
 	public String verTareas(int idProyecto) {
 		StringBuilder sb = new StringBuilder();
-		List<Tarea> tareas = session.get(Proyecto.class, idProyecto).getListaTareas();
-
+		Proyecto p  = session.get(Proyecto.class, idProyecto);
+		List<Tarea> tareas = p.getListaTareas();
+		
 		Iterator it = tareas.iterator();
 
 		// Vamos agregando a un String la salida del toString de cada uno de las
@@ -151,16 +162,18 @@ public class Controller {
 		return sb.toString();
 	}
 
-	public void empezarTarea(int tareaId) {
+	public void empezarTarea(int tareaId) throws cantidadVoluntariosException {
 		// Cambiamos el estado de la tarea a "INICIADA" representado como 1 en la base
 		// de datos.
 
 		Tarea t = session.get(Tarea.class, tareaId);
-
+		
 		if (t.getListaVoluntarios().size() < t.getMaximoVoluntario()
 				&& t.getListaVoluntarios().size() > t.getMinimoVoluntario()) {
 			// Solo si los voluntarios estan entre los limites fijados.
 			t.setEstado(estadoEnum.INICIADA);
+		} else {
+			throw new cantidadVoluntariosException("Cantidad de voluntarios incorrectos. No se ha podido empezar la tarea");
 		}
 	}
 
@@ -183,7 +196,7 @@ public class Controller {
 	public String verVoluntariosTarea(int tareaId) {
 		StringBuilder sb = new StringBuilder();
 		Tarea t = session.get(Tarea.class, tareaId);
-
+		Object vt;
 		List<VoluntarioTarea> voluntarios = t.getListaVoluntarios();
 
 		Iterator it = voluntarios.iterator();
@@ -191,7 +204,8 @@ public class Controller {
 		// Vamos agregando a un String la salida del toString de cada uno de las
 		// voluntarios de una tarea
 		while (it.hasNext()) {
-			sb.append(it.next().toString());
+			vt = it.next();
+			sb.append(vt.toString());
 		}
 
 		// devolvemos el string
@@ -215,14 +229,23 @@ public class Controller {
 		session.clear();
 	}
 
-	public void darAptitudVoluntario(int idA, int idV) {
+	public void darAptitudVoluntario(int idV, int idA) {
+		
 		Voluntario v = session.get(Voluntario.class, idV);
 		Aptitud a = session.get(Aptitud.class, idA);
 
+		System.out.println(v);
+		System.out.println(a);
+		
 		session.getTransaction().begin();
 
-		VoluntarioAptitud va = new VoluntarioAptitud(v, a);
+		VoluntarioAptitud va = new VoluntarioAptitud();
+		
+		va.setAptitud(a);
+		va.setVoluntario(v);
 
+		System.out.println(va);
+		
 		session.save(va);
 		session.getTransaction().commit();
 		session.clear();
@@ -265,8 +288,7 @@ public class Controller {
 		// Para ver todos los proyectos la unica forma que veo
 		// para acceder desde el menu voluntario es hacer una Query.
 
-		Query query = session
-				.createQuery("SELECT id, nombre, descripcion, fechaInicio, fechaFinalizacion FROM Proyecto");
+		Query query = session.createQuery("SELECT id, nombre, descripcion, fechaInicio, fechaFinalizacion FROM Proyecto");
 		StringBuilder sb = new StringBuilder();
 		Iterator it = query.getResultList().iterator();
 
@@ -372,5 +394,25 @@ public class Controller {
 
 		return a;
 	}
+	
+	public boolean comprobarFechaInicial(Date fechaTarea, Date fechaProyecto) {
+		boolean devolver = false;
+		
+		// Si la fecha inicial de la tarea es posterior a la de proyecto
+		if (fechaTarea.after(fechaProyecto)) {
+			devolver = true;
+		}
+		return devolver;
+	}
 
+	public boolean comprobarFechaFinal(Date fechaTarea, Date fechaProyecto) {
+		boolean devolver = false;
+		
+		// Si la fecha inicial de la tarea es anterior a la de proyecto
+		if (fechaTarea.before(fechaProyecto)) {
+			devolver = true;
+		}
+		return devolver;
+	}
+	
 }

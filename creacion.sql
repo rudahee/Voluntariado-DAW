@@ -7,7 +7,9 @@ drop table TAREAAPTITUD cascade constraints;
 drop table VOLUNTARIO cascade constraints;
 drop table VOLUNTARIOAPTITUD cascade constraints;
 drop table VOLUNTARIOTAREA cascade constraints;
+drop sequence HIBERNATE_SEQUENCE;
 
+CREATE SEQUENCE HIBERNATE_SEQUENCE;
 
 CREATE TABLE APTITUD (
     ID          NUMBER(10) NOT NULL,

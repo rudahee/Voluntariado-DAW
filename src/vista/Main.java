@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 import controlador.Controller;
+import excepciones.LimiteFechaException;
+import excepciones.cantidadVoluntariosException;
 import modelo.Aptitud;
 import modelo.Organizacion;
 import modelo.Voluntario;
@@ -15,7 +17,7 @@ public class Main {
 	static Scanner teclado = new Scanner(System.in);
 	static Controller controlador = new Controller();
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, LimiteFechaException, cantidadVoluntariosException {
 		// Pregunta para acceder al menu de voluntario o de organizacion.
 
 		int usuario;
@@ -135,7 +137,7 @@ public class Main {
 	 * METODOS DE ORGANIZACION
 	 * 
 	 */
-	private static void menuOrganizacion() throws ParseException {
+	private static void menuOrganizacion() throws ParseException, LimiteFechaException, cantidadVoluntariosException {
 		int opcion = 0;
 		int existe, id, minimo, maximo;
 		boolean individual;
@@ -196,7 +198,7 @@ public class Main {
 			case 3:
 				// Ver tareas de un proyecto
 				id = leerEntero("ID del proyecto: ");
-				controlador.verTareas(id);
+				System.out.println(controlador.verTareas(id));
 				break;
 			case 4:
 				// Crear tarea
@@ -231,7 +233,7 @@ public class Main {
 			case 8:
 				// Ver los voluntarios en una tarea
 				id = leerEntero("Id de la tarea: ");
-				controlador.verVoluntariosTarea(id);
+				System.out.println(controlador.verVoluntariosTarea(id));
 				break;
 			case 9:
 				// Dar feedback de los voluntarios
@@ -318,7 +320,7 @@ public class Main {
 		do {
 			// Preguntamos si creamos una aptitud o no.
 			opcion = leerEntero("1) Crear aptitud\n2) dar Aptitud existente\nopcion: ");
-		} while (opcion == 2 || opcion == 1);
+		} while (opcion != 2 && opcion != 1);
 
 		if (opcion == 1) {
 			nombre = leerCadena("nombre de la aptitud: ");
