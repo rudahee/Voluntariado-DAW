@@ -30,7 +30,6 @@ public class Main {
 		} else {
 			menuVoluntario();
 		}
-
 	}
 
 	/*
@@ -123,7 +122,7 @@ public class Main {
 	private static void imprimirMenuVoluntario() {
 		// Mostrar las opciones validas para un voluntario
 
-		System.out.println("1) Ver Proyectos");
+		System.out.println("1) Ver proyectos");
 		System.out.println("2) Unirse a un proyecto");
 		System.out.println("3) Ver tareas en un proyecto");
 		System.out.println("4) Unirse a una tarea");
