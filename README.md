@@ -23,8 +23,12 @@ El enunciado del proyecto se puede encontrar [aqui.](https://drive.google.com/fi
 - Java 13 o superior
 - Oracle 12c
 - Maven 4.0.0
-- Hibernate 5.4.0
 - ojdbc8
+
+**Estas dependencias las instalará maven:**
+- Junit Jupiter
+- Hibernate 5.4.0
+
 
 ## Diagramas
 
